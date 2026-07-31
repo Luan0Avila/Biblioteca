@@ -1,4 +1,4 @@
-from services import cadastrar_livro
+from services import cadastrar_livro, listar_livros
 
 def mostrar_menu():
     print("\n===== Biblioteca =====")
@@ -22,10 +22,9 @@ def main():
 
         if opcao == "1":
             livro = cadastrar_livro(livros)
-            print (livro)
             livros.append(livro)
         elif opcao == "2":
-            pass
+            listar_livros(livros)
         elif opcao == "3":
             pass
         elif opcao == "4":

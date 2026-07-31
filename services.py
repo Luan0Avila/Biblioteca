@@ -2,11 +2,8 @@ from models import Livro
 
 
 def gerar_id(livros):
-    
 
-    novo_id = len(livros) + 1
-
-    return novo_id
+    return len(livros) + 1
 
 def cadastrar_livro(livros):
     titulo = input("Digite o titulo: ")
@@ -22,3 +19,14 @@ def cadastrar_livro(livros):
     )
 
     return livro
+
+
+def listar_livros(livros):
+    if not livros:
+        print("No momento não nenhum livro para listar")
+    else:
+        print("====Livros Listados====")
+
+        for livro in livros:
+            print(f"ID: {livro.id}\nTitulo: {livro.titulo}\nAutor: {livro.autor}\nAno: {livro.ano}")
+            print("______________________________________")
