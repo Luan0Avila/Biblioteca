@@ -1,4 +1,4 @@
-from services import cadastrar_livro, listar_livros, buscar_livro,apagar_livro
+from services import cadastrar_livro, listar_livros, buscar_livro,apagar_livro, emprestar_livro, devolver_livro
 
 def mostrar_menu():
     print("\n===== Biblioteca =====")
@@ -28,9 +28,9 @@ def main():
         elif opcao == "3":
             buscar_livro(livros)
         elif opcao == "4":
-            pass
+            emprestar_livro(livros)
         elif opcao == "5":
-            pass
+            devolver_livro(livros)
         elif opcao == "6":
             apagar_livro(livros)
         elif opcao == "0":
