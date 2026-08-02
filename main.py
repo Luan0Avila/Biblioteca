@@ -1,4 +1,4 @@
-from services import cadastrar_livro, listar_livros, buscar_livro
+from services import cadastrar_livro, listar_livros, buscar_livro,apagar_livro
 
 def mostrar_menu():
     print("\n===== Biblioteca =====")
@@ -32,7 +32,7 @@ def main():
         elif opcao == "5":
             pass
         elif opcao == "6":
-            pass
+            apagar_livro(livros)
         elif opcao == "0":
 
             print("Desligando sistema...")

@@ -8,7 +8,11 @@ def gerar_id(livros):
 def cadastrar_livro(livros):
     titulo = input("Digite o titulo: ")
     autor = input("Digite o nome do autor: ")
-    ano = int(input("Digite o ano de publicação: "))
+    try:
+        ano = int(input("Digite o ano de publicação: "))
+    except ValueError:
+        print("Digite um ano válido.")
+        return
 
     print("Livro cadastrado com sucesso!")
     livro = Livro(
@@ -45,3 +49,18 @@ def buscar_livro(livros):
 
     if not encontrado:
         print("Nenhum livro encontrado! :(")
+
+
+def apagar_livro(livros):
+    try:
+        id_livro = int(input("Digite o ID do livro a ser apagado:"))
+    except ValueError:
+        print("Digite um ID válido")
+        return
+    for livro in livros:
+        if id_livro == livro.id:
+            livros.remove(livro)
+            print(f'Livro "{livro.titulo}" removido com sucesso!')
+            return
+    
+    print("ID de livro não encontrado.")
