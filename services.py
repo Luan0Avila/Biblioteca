@@ -20,7 +20,6 @@ def cadastrar_livro(livros):
 
     return livro
 
-
 def listar_livros(livros):
     if not livros:
         print("No momento não nenhum livro para listar")
@@ -30,3 +29,19 @@ def listar_livros(livros):
         for livro in livros:
             print(f"ID: {livro.id}\nTitulo: {livro.titulo}\nAutor: {livro.autor}\nAno: {livro.ano}")
             print("______________________________________")
+
+def buscar_livro(livros):
+    busca = input("Digite o titulo: ").lower()
+    encontrado = False
+
+    for livro in livros:
+        if busca in livro.titulo.lower():
+            print("Livro encontrado!")
+            print(f"ID: {livro.id}")
+            print(f"Título: {livro.titulo}")
+            print(f"Autor: {livro.autor}")
+            print(f"Ano: {livro.ano}")            
+            encontrado = True
+
+    if not encontrado:
+        print("Nenhum livro encontrado! :(")
