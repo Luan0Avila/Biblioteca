@@ -5,6 +5,13 @@ def gerar_id(livros):
 
     return len(livros) + 1
 
+def encontrar_livro_por_titulo(livros, titulo):
+    for livro in livros:
+        if livro.titulo.lower() == titulo.lower():
+            return livro
+
+    return None
+
 def cadastrar_livro(livros):
     titulo = input("Digite o titulo: ")
     autor = input("Digite o nome do autor: ")
@@ -38,18 +45,19 @@ def buscar_livro(livros):
     busca = input("Digite o titulo: ").lower()
     encontrado = False
 
-    for livro in livros:
-        if busca in livro.titulo.lower():
-            print("Livro encontrado!")
-            print(f"ID: {livro.id}")
-            print(f"Título: {livro.titulo}")
-            print(f"Autor: {livro.autor}")
-            print(f"Ano: {livro.ano}")            
-            encontrado = True
-
-    if not encontrado:
+    livro = encontrar_livro_por_titulo(livros, busca)
+    
+    if livro is None:
         print("Nenhum livro encontrado! :(")
+        return
 
+    if busca in livro.titulo.lower():
+        print("Livro encontrado!")
+        print(f"ID: {livro.id}")
+        print(f"Título: {livro.titulo}")
+        print(f"Autor: {livro.autor}")
+        print(f"Ano: {livro.ano}")            
+        encontrado = True
 
 def apagar_livro(livros):
     try:
@@ -68,25 +76,28 @@ def apagar_livro(livros):
 def emprestar_livro(livros):
     livro_emprestado = input("Digite o titulo do livro que deseja pegar emprestado: ")
     
-    for livro in livros:
-        if livro_emprestado.lower() == livro.titulo.lower(): 
-            if livro.emprestado:
-                print("Este livro já foi pego emrestado! :(")
-                return
-            livro.emprestado = True
-            print(f'Livro "{livro.titulo}" emprestado com sucesso"')
-            return
-    print("Livro não encontrado")
+    livro = encontrar_livro_por_titulo(livros, livro_emprestado)
+
+    if livro is None:
+        print("Livro não encontrado")
+        return
+
+    if livro.emprestado:
+        print("Este livro já foi pego emrestado! :(")
+        return
+    livro.emprestado = True
+    print(f'Livro "{livro.titulo}" emprestado com sucesso"')
+    return
 
 def devolver_livro(livros):
     livro_devolvido = input("Digite o titulo do livro que deseja devolver: ")
     
-    for livro in livros:
-        if livro_devolvido.lower() == livro.titulo.lower(): 
-            if not livro.emprestado:
-                print("Este livro não está emprestado!")
-                return
-            livro.emprestado = False
-            print(f'Livro "{livro.titulo}" foi devolvido com sucesso"')
-            return
-    print("Livro não encontrado")
+    livro = encontrar_livro_por_titulo(livros, livro_devolvido)
+    if livro is None:
+        print("Livro não encontrado")
+        return
+    if not livro.emprestado:
+        print("Este livro não está emprestado!")
+        return
+    livro.emprestado = False
+    print(f'Livro "{livro.titulo}" foi devolvido com sucesso"')
