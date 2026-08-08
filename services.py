@@ -1,5 +1,5 @@
-from models import Livro
-
+from models import Livro, HistoricoEmprestimo
+from datetime import datetime
 
 def gerar_id(livros):
 
@@ -73,7 +73,7 @@ def apagar_livro(livros):
     
     print("ID de livro não encontrado.")
 
-def emprestar_livro(livros):
+def emprestar_livro(livros, historico):
     livro_emprestado = input("Digite o titulo do livro que deseja pegar emprestado: ")
     
     livro = encontrar_livro_por_titulo(livros, livro_emprestado)
@@ -85,8 +85,15 @@ def emprestar_livro(livros):
     if livro.emprestado:
         print("Este livro já foi pego emrestado! :(")
         return
-    livro.emprestado = True
     print(f'Livro "{livro.titulo}" emprestado com sucesso"')
+    registro = HistoricoEmprestimo(
+    livro_id=livro.id,
+    titulo=livro.titulo,
+    usuario=input("Digite o nome do usuário: "),
+    data_emprestimo=datetime.now().isoformat()
+    )
+    livro.emprestado = True
+    historico.append(registro)
     return
 
 def devolver_livro(livros):

@@ -1,5 +1,5 @@
 from services import cadastrar_livro, listar_livros, buscar_livro,apagar_livro, emprestar_livro, devolver_livro
-from storage import carregar_livros, salvar_livros
+from storage import carregar_livros, salvar_livros, carregar_historico, salvar_historico
 
 def mostrar_menu():
     print("\n===== Biblioteca =====")
@@ -14,6 +14,7 @@ def mostrar_menu():
 def main():
 
     livros = carregar_livros()
+    historico = carregar_historico()
     while True:
         mostrar_menu()
 
@@ -31,8 +32,9 @@ def main():
         elif opcao == "3":
             buscar_livro(livros)
         elif opcao == "4":
-            emprestar_livro(livros)
+            emprestar_livro(livros, historico)
             salvar_livros(livros)
+            salvar_historico(historico)
         elif opcao == "5":
             devolver_livro(livros)
             salvar_livros(livros)
