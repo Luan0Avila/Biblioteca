@@ -1,5 +1,5 @@
 from services import cadastrar_livro, listar_livros, buscar_livro,apagar_livro, emprestar_livro, devolver_livro
-from storage import carregar_livros, salvar_livros, carregar_historico, salvar_historico
+from storage import carregar_livros, salvar_livros, carregar_historico,salvar_historico
 
 def mostrar_menu():
     print("\n===== Biblioteca =====")

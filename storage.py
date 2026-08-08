@@ -38,7 +38,7 @@ def carregar_historico():
             for dados in historico
         ]
 
-        return histor_objetos
+        return historico_objetos
     except (FileNotFoundError, json.JSONDecodeError):
         return []
     
