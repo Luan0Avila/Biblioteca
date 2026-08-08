@@ -1,4 +1,4 @@
-from services import cadastrar_livro, listar_livros, buscar_livro,apagar_livro, emprestar_livro, devolver_livro
+from services import cadastrar_livro, listar_livros, buscar_livro,apagar_livro, emprestar_livro, devolver_livro, listar_historico
 from storage import carregar_livros, salvar_livros, carregar_historico,salvar_historico
 
 def mostrar_menu():
@@ -9,6 +9,7 @@ def mostrar_menu():
     print("4 - Emprestar livro")
     print("5 - Devolver livro")
     print("6 - Remover livro")
+    print("7 - Listar histórico")
     print("0 - Sair")
 
 def main():
@@ -42,6 +43,8 @@ def main():
         elif opcao == "6":
             apagar_livro(livros)
             salvar_livros(livros)
+        elif opcao == "7":
+            listar_historico(historico)
         elif opcao == "0":
 
             print("Desligando sistema...")
