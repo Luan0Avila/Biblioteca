@@ -96,7 +96,7 @@ def emprestar_livro(livros, historico):
     historico.append(registro)
     return
 
-def devolver_livro(livros):
+def devolver_livro(livros,historico):
     livro_devolvido = input("Digite o titulo do livro que deseja devolver: ")
     
     livro = encontrar_livro_por_titulo(livros, livro_devolvido)
@@ -107,4 +107,13 @@ def devolver_livro(livros):
         print("Este livro não está emprestado!")
         return
     livro.emprestado = False
-    print(f'Livro "{livro.titulo}" foi devolvido com sucesso"')
+
+    for registro in historico:
+        if registro.livro_id == livro.id and registro.data_devolucao is None:
+            registro.data_devolucao = datetime.now().isoformat()
+            break
+
+    print(f'Livro "{livro.titulo}" foi devolvido com sucesso')
+
+
+

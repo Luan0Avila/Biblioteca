@@ -36,8 +36,9 @@ def main():
             salvar_livros(livros)
             salvar_historico(historico)
         elif opcao == "5":
-            devolver_livro(livros)
+            devolver_livro(livros, historico)
             salvar_livros(livros)
+            salvar_historico(historico)
         elif opcao == "6":
             apagar_livro(livros)
             salvar_livros(livros)
