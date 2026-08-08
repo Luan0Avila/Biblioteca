@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from datetime import datetime
 
 @dataclass
 class Livro:
@@ -13,5 +12,6 @@ class Livro:
 class HistoricoEmprestimo:
     livro_id: int
     titulo: str
+    usuario: str
     data_emprestimo: str
     data_devolucao: str | None = None

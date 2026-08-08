@@ -23,7 +23,7 @@ def carregar_livros():
         return []
 
 def salvar_historico(historico):
-    historico_dict = [asdict(historico) for registro in historico]
+    historico_dict = [asdict(registro) for registro in historico]
     with open("historico.json", "w") as arquivo:
         json.dump(historico_dict, arquivo, indent=4)
 
