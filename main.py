@@ -3,7 +3,7 @@ from services import cadastrar_livro, listar_livros, buscar_livro,apagar_livro, 
 from storage import carregar_livros, salvar_livros, carregar_historico,salvar_historico
 
 def mostrar_menu():
-    print("\n===== Biblioteca =====")
+    print("=" * 20 + " Biblioteca " + "=" * 20)
     print("1 - Cadastrar livro")
     print("2 - Listar livros")
     print("3 - Buscar livro")
@@ -13,6 +13,7 @@ def mostrar_menu():
     print("7 - Listar histórico")
     print("8 - Listar histórico de usuário")
     print("0 - Sair")
+    print("=" * 53)
 
 def main():
 
