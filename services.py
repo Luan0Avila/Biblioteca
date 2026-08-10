@@ -2,8 +2,12 @@ from models import Livro, HistoricoEmprestimo
 from datetime import datetime
 
 def gerar_id(livros):
-
-    return len(livros) + 1
+    if not livros:
+        return 1
+        
+    ids = [livro.id for livro in livros]
+    novo_id= max(ids) + 1
+    return novo_id
 
 def encontrar_livro_por_titulo(livros, titulo):
     for livro in livros:
