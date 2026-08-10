@@ -12,6 +12,21 @@ def encontrar_livro_por_titulo(livros, titulo):
 
     return None
 
+def exibir_registro_historico(registro):
+    print(
+        f"Livro: {registro.titulo}\n"
+        f"Usuário: {registro.usuario}\n"
+        f"Empréstimo: {registro.data_emprestimo}"
+    )
+
+    if registro.data_devolucao is None:
+        print("Devolução: Ainda está emprestado")
+    else:
+        print(f"Devolução: {registro.data_devolucao}")
+
+    print("-" * 40)
+
+
 def cadastrar_livro(livros):
     titulo = input("Digite o titulo: ")
     autor = input("Digite o nome do autor: ")
@@ -113,19 +128,13 @@ def devolver_livro(livros,historico):
     print(f'Livro "{livro.titulo}" foi devolvido com sucesso')
 
 def listar_historico(historico):
+    if not historico:
+        print("Ainda não existe nenhum registro no histórico.")
+        return
+    
     print("Este é o histórico")
     for registro in historico:
-        print(f'Livro: {registro.titulo}\n'
-        f'Usuário: {registro.usuario}\n'
-        f'Empréstimo: {registro.data_emprestimo}'
-        )
-
-        if registro.data_devolucao is None:
-            print('Devolução: Ainda está emprestado')
-        else:
-            print(f'Devolução: {registro.data_devolucao}')
-        
-        print("-" * 40)
+        exibir_registro_historico(registro)
 
 def listar_historico_de_usuario(historico):
     usuario = input("Digite o nome do usuário: ")
@@ -133,16 +142,7 @@ def listar_historico_de_usuario(historico):
 
     for registro in historico:
         if usuario.lower() == registro.usuario.lower():
-            print(f'Livro: {registro.titulo}\n'
-            f'Usuário: {registro.usuario}\n'
-            f'Empréstimo: {registro.data_emprestimo}'
-            )
-            if registro.data_devolucao is None:
-                print("Devolução: Ainda está emprestado")
-            else:
-                print(f"Devolução: {registro.data_devolucao}")
-
-            print("-" * 40)
+            exibir_registro_historico(registro)
             encontrado = True
     
     if not encontrado:
@@ -154,16 +154,7 @@ def listar_historico_de_livro(historico):
 
     for registro in historico:
         if livro.lower() == registro.titulo.lower():
-            print(f'Livro: {registro.titulo}\n'
-            f'Usuário: {registro.usuario}\n'
-            f'Empréstimo: {registro.data_emprestimo}'
-            )
-            if registro.data_devolucao is None:
-                print("Devolução: Ainda está emprestado")
-            else:
-                print(f"Devolução: {registro.data_devolucao}")
-
-            print("-" * 40)
+            exibir_registro_historico(registro)
             encontrado = True
     
     if not encontrado:
