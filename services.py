@@ -4,10 +4,9 @@ from datetime import datetime
 def gerar_id(livros):
     if not livros:
         return 1
-        
+
     ids = [livro.id for livro in livros]
-    novo_id= max(ids) + 1
-    return novo_id
+    return max(ids) + 1
 
 def encontrar_livro_por_titulo(livros, titulo):
     for livro in livros:
@@ -16,20 +15,12 @@ def encontrar_livro_por_titulo(livros, titulo):
 
     return None
 
-def exibir_registro_historico(registro):
-    print(
-        f"Livro: {registro.titulo}\n"
-        f"Usuário: {registro.usuario}\n"
-        f"Empréstimo: {registro.data_emprestimo}"
-    )
+def encontrar_livro_por_id(livros, id_livro):
+    for livro in livros:
+        if livro.id == id_livro:
+            return livro
 
-    if registro.data_devolucao is None:
-        print("Devolução: Ainda está emprestado")
-    else:
-        print(f"Devolução: {registro.data_devolucao}")
-
-    print("-" * 40)
-
+    return None
 
 def cadastrar_livro(livros):
     titulo = input("Digite o titulo: ")
@@ -61,19 +52,22 @@ def listar_livros(livros):
             print("______________________________________")
 
 def buscar_livro(livros):
-    busca = input("Digite o titulo: ")
+    busca = input("Digite o titulo: ").lower()
+    encontrado = False
 
-    livro = encontrar_livro_por_titulo(livros, busca)
+    for livro in livros:
+        if busca in livro.titulo.lower():
+            print("Livro encontrado!")
+            print(f"ID: {livro.id}")
+            print(f"Título: {livro.titulo}")
+            print(f"Autor: {livro.autor}")
+            print(f"Ano: {livro.ano}")
+            print("-" * 40)
 
-    if livro is None:
+            encontrado = True
+
+    if not encontrado:
         print("Nenhum livro encontrado! :(")
-        return
-
-    print("Livro encontrado!")
-    print(f"ID: {livro.id}")
-    print(f"Título: {livro.titulo}")
-    print(f"Autor: {livro.autor}")
-    print(f"Ano: {livro.ano}")
 
 def apagar_livro(livros):
     try:
@@ -81,22 +75,29 @@ def apagar_livro(livros):
     except ValueError:
         print("Digite um ID válido")
         return
-    for livro in livros:
-        if id_livro == livro.id:
-            livros.remove(livro)
-            print(f'Livro "{livro.titulo}" removido com sucesso!')
+        livro = encontrar_livro_por_id(livros, id_livro)
+
+        if livro is None:
+            print("ID de livro não encontrado.")
             return
-    
-    print("ID de livro não encontrado.")
+
+        livros.remove(livro)
+        print(f'Livro "{livro.titulo}" removido com sucesso!')
 
 def emprestar_livro(livros, historico):
-    livro_emprestado = input("Digite o titulo do livro que deseja pegar emprestado: ")
-    
-    livro = encontrar_livro_por_titulo(livros, livro_emprestado)
+    try:
+        livro_emprestado = int(input("Digite o ID do livro que deseja pegar emprestado: "))
+    except ValueError:
+        print("Digite um ID válido")
+        return
+        
+    livro = encontrar_livro_por_id(livros, livro_emprestado)
 
     if livro is None:
         print("Livro não encontrado")
         return
+
+    usuario = input("Digite o nome do usuário: ")
 
     if livro.emprestado:
         print("Este livro já foi pego emrestado! :(")
@@ -106,22 +107,29 @@ def emprestar_livro(livros, historico):
     registro = HistoricoEmprestimo(
     livro_id=livro.id,
     titulo=livro.titulo,
-    usuario=input("Digite o nome do usuário: "),
+    usuario=usuario,
     data_emprestimo=datetime.now().isoformat()
     )
     historico.append(registro)
     return
 
 def devolver_livro(livros,historico):
-    livro_devolvido = input("Digite o titulo do livro que deseja devolver: ")
-    
-    livro = encontrar_livro_por_titulo(livros, livro_devolvido)
+    try:
+        livro_devolvido = int(input("Digite o ID do livro que deseja devolver: "))
+    except ValueError:
+        print("Digite um ID válido")
+        return
+
+    livro = encontrar_livro_por_id(livros, livro_devolvido)
+
     if livro is None:
         print("Livro não encontrado")
         return
+
     if not livro.emprestado:
         print("Este livro não está emprestado!")
         return
+
     livro.emprestado = False
 
     for registro in historico:
@@ -132,13 +140,19 @@ def devolver_livro(livros,historico):
     print(f'Livro "{livro.titulo}" foi devolvido com sucesso')
 
 def listar_historico(historico):
-    if not historico:
-        print("Ainda não existe nenhum registro no histórico.")
-        return
-    
     print("Este é o histórico")
     for registro in historico:
-        exibir_registro_historico(registro)
+        print(f'Livro: {registro.titulo}\n'
+        f'Usuário: {registro.usuario}\n'
+        f'Empréstimo: {registro.data_emprestimo}'
+        )
+
+        if registro.data_devolucao is None:
+            print('Devolução: Ainda está emprestado')
+        else:
+            print(f'Devolução: {registro.data_devolucao}')
+        
+        print("-" * 40)
 
 def listar_historico_de_usuario(historico):
     usuario = input("Digite o nome do usuário: ")
@@ -146,20 +160,20 @@ def listar_historico_de_usuario(historico):
 
     for registro in historico:
         if usuario.lower() == registro.usuario.lower():
-            exibir_registro_historico(registro)
+            print(f'Livro: {registro.titulo}\n'
+            f'Usuário: {registro.usuario}\n'
+            f'Empréstimo: {registro.data_emprestimo}'
+            )
+            if registro.data_devolucao is None:
+                print("Devolução: Ainda está emprestado")
+            else:
+                print(f"Devolução: {registro.data_devolucao}")
+
+            print("-" * 40)
             encontrado = True
     
     if not encontrado:
         print("Usuário não encontrado! :(")
 
-def listar_historico_de_livro(historico):
-    livro = input("Digite o titulo do livro: ")
-    encontrado = False
 
-    for registro in historico:
-        if livro.lower() == registro.titulo.lower():
-            exibir_registro_historico(registro)
-            encontrado = True
-    
-    if not encontrado:
-        print("Livro não encontrado! :(")
+
