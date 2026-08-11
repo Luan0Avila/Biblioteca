@@ -10,11 +10,16 @@ def mostrar_menu():
     print("4 - Emprestar livro")
     print("5 - Devolver livro")
     print("6 - Remover livro")
-    print("7 - Listar histórico")
-    print("8 - Listar histórico de usuário")
-    print("9 - Listar histórico de livro")
+    print("7 - Histórico")
     print("0 - Sair")
     print("=" * 53)
+
+
+def mostrar_menu_historico():
+    print("1 - Listar histórico")
+    print("2 - Listar histórico de usuário")
+    print("3 - Listar histórico de livro")
+    print("0 - Voltar")
 
 def main():
 
@@ -48,11 +53,25 @@ def main():
             apagar_livro(livros)
             salvar_livros(livros)
         elif opcao == "7":
-            listar_historico(historico)
-        elif opcao == "8":
-            listar_historico_de_usuario(historico)
-        elif opcao == "9":
-            listar_historico_de_livro(historico)
+            while True:
+                mostrar_menu_historico()
+
+                opcao_historico = input("Escolha uma opção: ")
+                if opcao_historico == "1":
+                    listar_historico(historico)
+
+                elif opcao_historico == "2":
+                    listar_historico_de_usuario(historico)
+
+                elif opcao_historico == "3":
+                    listar_historico_de_livro(historico)
+
+                elif opcao_historico == "0":
+                    print("Voltando ao menu principal")
+                    break
+                else:
+                    print("Opção invalida!")
+
         elif opcao == "0":
 
             print("Desligando sistema...")
