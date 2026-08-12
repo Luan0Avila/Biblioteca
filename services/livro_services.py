@@ -1,28 +1,10 @@
-from services import gerar_id, encontrar_livro_por_id, encontrar_livro_por_titulo
+from services import gerar_id, encontrar_livro_por_id, encontrar_livro_por_titulo, validar_campo, validar_inteiro
 from models import Livro
 
-def encontrar_livro_por_titulo(livros, titulo):
-    for livro in livros:
-        if livro.titulo.lower() == titulo.lower():
-            return livro
-
-    return None
-
-def encontrar_livro_por_id(livros, id_livro):
-    for livro in livros:
-        if livro.id == id_livro:
-            return livro
-
-    return None
-
 def cadastrar_livro(livros):
-    titulo = input("Digite o titulo: ")
-    autor = input("Digite o nome do autor: ")
-    try:
-        ano = int(input("Digite o ano de publicação: "))
-    except ValueError:
-        print("Digite um ano válido.")
-        return
+    titulo = validar_campo("Digite o titulo: ")
+    autor = validar_campo("Digite o nome do autor: ")
+    ano = validar_inteiro("Digite o ano de publicação: ") 
 
     print("Livro cadastrado com sucesso!")
     livro = Livro(

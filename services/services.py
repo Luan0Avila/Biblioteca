@@ -22,6 +22,21 @@ def encontrar_livro_por_id(livros, id_livro):
     return None
 
 
+def validar_campo(mensagem):
+    while True:
+
+        valor = input(mensagem).strip()
+        if valor:
+            return valor
+
+        print("O campo não pode estar vazio")
+
+def validar_inteiro(mensagem):
+    while True:
+        try:
+            return int(input(mensagem))
+        except ValueError:
+            print("Digite um número válido.")
 
 
 
