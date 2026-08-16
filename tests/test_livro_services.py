@@ -1,5 +1,5 @@
 from models import Livro
-from services.livro_services import gerar_id
+from services.livro_services import gerar_id, encontrar_livro_por_id
 
 
 def test_gerar_id():
@@ -49,3 +49,38 @@ def test_gerar_id_com_ids_nao_sequenciais():
     ]
 
     assert gerar_id(livros) == 6
+
+def test_encontrar_livro_por_id():
+    livros = [
+        Livro(
+            id=1,
+            titulo="Dom Casmurro",
+            autor="Machado de Assis",
+            ano=1899
+        ),
+        Livro(
+            id=2,
+            titulo="O Hobbit",
+            autor="J. R. R. Tolkien",
+            ano=1937
+        )
+    ]
+
+    livro = encontrar_livro_por_id(livros, 2)
+
+    assert livro is not None
+    assert livro.titulo == "O Hobbit"
+
+def test_encontrar_livro_por_id_nao_encontrado():
+    livros = [
+        Livro(
+            id=1,
+            titulo="Dom Casmurro",
+            autor="Machado de Assis",
+            ano=1899
+        )
+    ]
+
+    livro = encontrar_livro_por_id(livros, 99)
+
+    assert livro is None
