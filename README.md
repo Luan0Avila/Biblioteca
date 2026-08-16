@@ -5,6 +5,8 @@ Sistema de gerenciamento de biblioteca desenvolvido em Python.
 O projeto permite cadastrar livros, realizar empréstimos e devoluções,
 armazenar o histórico das operações e consultar informações dos livros.
 
+---
+
 ## 🚀 Funcionalidades
 
 - [x] Cadastrar livros
@@ -20,12 +22,16 @@ armazenar o histórico das operações e consultar informações dos livros.
 - [x] Validação de entradas
 - [ ] Testes automatizados
 
+---
+
 ## 🛠️ Tecnologias
 
-- Python
-- JSON
-- Dataclasses
-- Pytest
+- **Python**
+- **JSON**
+- **Dataclasses**
+- **Pytest**
+
+---
 
 ## 📁 Estrutura do projeto
 
@@ -54,23 +60,3 @@ Biblioteca/
 │
 └── tests/
     └── test_livro_services.py
-
-## ⚙️ Como executar
-
-    Clone o projeto:
-
-        - git clone <URL_DO_REPOSITORIO>
-    
-    Entre na pasta:
-        - cd Biblioteca
-    
-    Execute:
-        - python main.py
-
-## 🧪 Executando os testes
-
-    Instale o Pytest:
-        - python -m pip install pytest
-
-    Execute os testes:
-        - python -m pytest
