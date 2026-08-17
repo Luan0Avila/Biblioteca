@@ -1,5 +1,6 @@
 from models import Livro
-from services.livro_services import gerar_id, encontrar_livro_por_id, encontrar_livro_por_titulo
+from pytest import MonkeyPatch
+from services.livro_services import gerar_id, encontrar_livro_por_id, encontrar_livro_por_titulo,cadastrar_livro
 
 
 def test_gerar_id():
@@ -114,3 +115,20 @@ def test_encontrar_livro_por_titulo_ignora_maiusculas():
 
     assert livro is not None
     assert livro.id == 1
+
+def test_cadastrar_livro(monkeypatch):
+    entradas = iter([
+        "Dom Casmurro",
+        "Machado de Assis",
+        "1899"
+    ])
+
+    monkeypatch.setattr("builtins.input", lambda _: next(entradas))
+    livros = []
+    livro = cadastrar_livro(livros)
+
+    assert livro.titulo == "Dom Casmurro"
+    assert livro.autor == "Machado de Assis"
+    assert livro.ano == 1899
+    assert livro.id == 1
+
