@@ -132,3 +132,5 @@ def test_cadastrar_livro(monkeypatch):
     assert livro.ano == 1899
     assert livro.id == 1
 
+def test_cadastrar_livro_ano_invalido(monkeypatch):
+    ...
