@@ -1,5 +1,5 @@
 from models import Livro
-from services.livro_services import gerar_id, encontrar_livro_por_id
+from services.livro_services import gerar_id, encontrar_livro_por_id, encontrar_livro_por_titulo
 
 
 def test_gerar_id():
@@ -84,3 +84,33 @@ def test_encontrar_livro_por_id_nao_encontrado():
     livro = encontrar_livro_por_id(livros, 99)
 
     assert livro is None
+
+def test_encontrar_livro_por_titulo():
+    livros = [
+        Livro(
+            id=1,
+            titulo="Dom Casmurro",
+            autor="Machado de Assis",
+            ano=1899
+        )
+    ]
+
+    livro = encontrar_livro_por_titulo(livros, "Dom Casmurro")
+
+    assert livro is not None
+    assert livro.id == 1
+
+def test_encontrar_livro_por_titulo_ignora_maiusculas():
+    livros = [
+        Livro(
+            id=1,
+            titulo="Dom Casmurro",
+            autor="Machado de Assis",
+            ano=1899
+        )
+    ]
+
+    livro = encontrar_livro_por_titulo(livros, "dOm CaSmUrRo")
+
+    assert livro is not None
+    assert livro.id == 1
