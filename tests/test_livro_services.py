@@ -1,5 +1,5 @@
 from models import Livro
-from pytest import MonkeyPatch
+from pytest import MonkeyPatch, CaptureFixture
 from services.livro_services import gerar_id, encontrar_livro_por_id, encontrar_livro_por_titulo,cadastrar_livro
 
 
@@ -132,5 +132,20 @@ def test_cadastrar_livro(monkeypatch):
     assert livro.ano == 1899
     assert livro.id == 1
 
-def test_cadastrar_livro_ano_invalido(monkeypatch):
-    ...
+def test_cadastrar_livro_ano_invalido(monkeypatch, capsys):
+    entradas = iter([
+        "Dom Casmurro",
+        "Machado de Assis",
+        "abc",
+        "1899"
+    ])
+
+    monkeypatch.setattr("builtins.input", lambda _: next(entradas))
+
+    livros = []
+    livro = cadastrar_livro(livros)
+
+    captura = capsys.readouterr()
+
+    assert "Digite um número válido." in captura.out
+    assert livro.ano == 1899
